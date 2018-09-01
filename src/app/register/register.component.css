@@ -1,0 +1,125 @@
+
+.register-container {
+  width: 100%;
+  margin-top: 10%;
+}
+
+.register-box {
+  width: 50%;
+  display: block;
+  margin: 50px auto;
+  border: 1px solid #ededed;
+  border-top: 0;
+  border-radius: 10px 10px 5px 5px;
+  box-shadow: 5px 5px 15px grey;
+}
+
+.legend {
+  height:10px;
+  width:100%;
+  background-color: #137ec1;
+  border-radius: 5px 5px 0 0;
+}
+
+.register-text {
+  padding: 15px 20px 20px 20px;
+  font-weight: 400;
+  border-bottom: 1px solid #ededed;
+}
+
+.register-content {
+  margin-top: 35px;
+  padding: 0 20px 20px 20px;
+}
+
+.progress {
+  margin-left: 50px;
+  margin-top: 5px;
+  height: 10px;
+}
+
+
+.bg-warning {
+  background-color: #f9af43!important;
+}
+
+.bg-info {
+  background-color: #1e7fbf!important;
+}
+
+.bg-success {
+  background-color: #58b74e!important;
+}
+
+.strength-text {
+  font-size: 10px;
+  display: block;
+  margin: 0 auto;
+  width: 60px;
+  color: #545454;
+}
+
+.domain {
+  font-size: 13px;;
+}
+
+
+.context-menu {
+  display: none;
+  z-index: 999;
+  position: absolute;
+  border: 1px solid #cfcfcf;
+  white-space: nowrap;
+  background: #fff;
+  color: #545454;
+  border-radius: 5px;
+  box-shadow: 5px 5px 15px grey;
+  padding: 10px 30px;
+  font-size: 12px;
+  top: 45px;
+  right: 0;
+  width: 250px;
+}
+
+.context-menu-arrow {
+  top: -7px;
+  right: 17px;
+  border: 2px solid #cfcfcf;
+  position: absolute;
+  display: block;
+  width: 0;
+  border-radius: 4px 0 0;
+  height: 0;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  padding: 5px;
+  border-bottom: 0;
+  border-right: 0;
+  background-color: #fff;
+}
+
+.password-help {
+  cursor: pointer;
+}
+
+.password-help:hover .context-menu {
+  display: block;
+}
+
+
+.sign-up {
+  height: 35px;
+}
+
+.btn-register, .btn-cancel {
+  float: right;
+  padding: 5px 15px;
+  font-size: 12px;
+  border-radius: 5px;
+}
+
+.btn-cancel {
+  margin-right: 15px;
+  padding: 7px 15px;
+  text-decoration: none;
+}

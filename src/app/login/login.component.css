@@ -1,0 +1,66 @@
+
+.login-container {
+  width: 100%;
+  margin-top: 10%;
+}
+
+.login-box {
+  width: 50%;
+  height: 300px;
+  display: block;
+  margin: 0 auto;
+  border: 1px solid #ededed;
+  border-top: 0;
+  border-radius: 10px 10px 5px 5px;
+  box-shadow: 5px 5px 15px grey;
+}
+
+.legend {
+  height:10px;
+  width:100%;
+  background-color: #58b74e;
+  border-radius: 5px 5px 0 0;
+}
+
+.login-text {
+  padding: 15px 20px 20px 20px;
+  font-weight: 400;
+  border-bottom: 1px solid #ededed;
+}
+
+.login-content {
+  margin-top: 35px;
+  padding: 0 20px 20px 20px;
+}
+
+.domain {
+  font-size: 13px;;
+}
+
+.sign-up {
+  float: left;
+}
+
+.sign-up ul {
+  padding: 0;
+}
+
+.sign-up li {
+  list-style: none;
+  font-size: 12px;
+  font-weight:100;
+  color: #adadad;;
+}
+
+.sign-up li a {
+  text-decoration: none;
+}
+
+.btn-login {
+  float: right;
+  padding: 5px 15px;
+  font-size: 12px;
+  border-radius: 5px;
+  position: relative;
+  top: 5px;
+}
