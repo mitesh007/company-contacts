@@ -7,7 +7,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="icon-user"></i></span>
         </div>
-        <input type="text" class="form-control" aria-label="username">
+        <input type="text" class="form-control" aria-label="username" [(ngModel)]="username">
         <div class="input-group-append">
           <span class="input-group-text domain">@inmar.com</span>
         </div>
@@ -16,7 +16,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="icon-key"></i></span>
         </div>
-        <input type="password" class="form-control" aria-label="password">
+        <input type="password" class="form-control" aria-label="password" [(ngModel)]="password">
       </div>
       <div>
         <div class="sign-up">
@@ -25,8 +25,9 @@
             <li><span>New User? <a routerLink="/register">Sign Up</a></span></li>
           </ul>
         </div>
-        <button class="btn-primary btn-login">Login</button>
+        <button class="btn-primary btn-login" (click)="login()">Login</button>
       </div>
     </div>
   </div>
 </div>
+<app-toggler></app-toggler>

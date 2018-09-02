@@ -2,19 +2,19 @@
   <div class="register-box">
     <div class="legend"></div>
     <h1 class="register-text">Sign up</h1>
-    <div class="register-content">
+    <div class="register-content" *ngIf="!registered">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text" id=""><i class="icon-user"></i></span>
         </div>
-        <input type="text" class="form-control" placeholder="First name">
-        <input type="text" class="form-control" placeholder="Last name">
+        <input type="text" class="form-control" placeholder="First name" [(ngModel)]="employeeObj.firstName">
+        <input type="text" class="form-control" placeholder="Last name" [(ngModel)]="employeeObj.lastName">
       </div>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="icon-key"></i></span>
         </div>
-        <input type="password" class="form-control" aria-label="password" placeholder="Password">
+        <input type="password" class="form-control" aria-label="password" (keyup)="validatePassword()" placeholder="Password" [(ngModel)]="employeeObj.password">
         <div class="input-group-append password-help">
           <span class="input-group-text"><i class="icon-help"></i></span>
           <ul class="context-menu" role="menu" id="context-menu" >
@@ -34,11 +34,15 @@
       </div>
       <div class="progress">
         <div class="progress-bar bg-danger" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-        <div class="progress-bar bg-warning" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-        <div class="progress-bar bg-info" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-        <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        <div *ngIf="pwdStrength >= 3" class="progress-bar bg-warning" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        <div *ngIf="pwdStrength >= 7" class="progress-bar bg-info" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        <div *ngIf="pwdStrength >= 10" class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
-      <label class="mb-3 strength-text">Very Strong</label>
+      <label *ngIf="pwdStrength === 0" class="mb-3 strength-text">Too short</label>
+      <label *ngIf="pwdStrength > 0 && pwdStrength <= 3" class="mb-3 strength-text">Too week</label>
+      <label *ngIf="pwdStrength > 3 && pwdStrength <= 5" class="mb-3 strength-text">Weak</label>
+      <label *ngIf="pwdStrength > 5 && pwdStrength <= 7" class="mb-3 strength-text">Strong</label>
+      <label *ngIf="pwdStrength > 7 && pwdStrength <= 10" class="mb-3 strength-text">Very Strong</label>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="icon-key"></i></span>
@@ -49,7 +53,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="icon-mail-alt"></i></span>
         </div>
-        <input type="text" class="form-control" aria-label="username">
+        <input type="text" class="form-control" aria-label="username"  [(ngModel)]="employeeObj.emailId">
         <div class="input-group-append">
           <span class="input-group-text domain">@inmar.com</span>
         </div>
@@ -58,18 +62,22 @@
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="icon-phone"></i></span>
         </div>
-        <input type="text" class="form-control" aria-label="phone">
+        <input type="text" class="form-control" aria-label="phone" [(ngModel)]="employeeObj.phoneNum">
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="icon-id-card-o"></i></span>
         </div>
-        <input type="text" class="form-control" aria-label="Aadhar_Id" placeholder="Enter Aadhar Number">
+        <input type="text" class="form-control" aria-label="Aadhar_Id" placeholder="Enter Aadhar Number" [(ngModel)]="employeeObj.aadhar">
       </div>
       <div class="sign-up">
-        <button class="btn-primary btn-register">Register</button>
+        <button class="btn-primary btn-register" (click)="register()">Register</button>
         <a routerLink="/login" class="btn-secondary btn-cancel">Cancel</a>
       </div>
+    </div>
+    <div class="registered-content"  *ngIf="registered">
+      <h5>Successfull !!!</h5>
+      <p>You have been successfully registered. <br/> Please <a routerLink="/login">login </a> again with your email id and password. </p>
     </div>
   </div>
 </div>

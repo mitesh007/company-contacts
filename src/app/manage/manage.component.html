@@ -1,0 +1,51 @@
+<div class="manage-container">
+  <div class="header">
+    <a href="javascript:void(0)" (click)="logout()" ><i class="icon-logout"></i>Log out</a>
+    <a href="javascript:void(0)" (click)="open()" ><i class="icon-user"></i>Add Contact</a>
+    <a href="javascript:void(0)" (click)="openGroup()"><i class="icon-users"></i>Create group</a>
+    <a href="javascript:void(0)" (click)="open()" ><i class="icon-user"></i>Manage Contact</a>
+    <a href="javascript:void(0)" (click)="openGroup()"><i class="icon-users"></i>Manage group</a>
+    <ul class="context-menu" role="menu" id="context-menu-add-group" >
+      <span class="context-menu-arrow"></span>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="icon-mail-alt"></i></span>
+        </div>
+        <input type="text" class="form-control" aria-label="groupName" placeholder="Enter group name" [(ngModel)]="groupName">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" id="add-group" (click)="createGroup()"><i class="icon-check"></i></button>
+          <button class="btn btn-outline-secondary" type="button" id="cancel-group" (click)="closeGroup()"><i class="icon-cancel"></i></button>
+        </div>
+      </div>
+    </ul>
+  </div>
+  <app-add-contact [show]="showModal"></app-add-contact>
+  <div class="groups row">
+    <div class="col-3 groupsList">
+      <ul>
+        <li *ngFor="let group of groupsList" class="group-name" (click)="setSelectedGroup(group.groupId)"
+            [ngClass]="{'selected' : group.groupId === selectedGroupId}">
+          <i class="icon-users"></i>{{group.groupName}}
+          <app-toggler (onToggle)="updateStatus($event, group.groupId)" [active]="group.isActive == 1 ? true : false" style="float: right;"></app-toggler>
+        </li>
+      </ul>
+    </div>
+    <div class="col-9 contactsList">
+      <div class="row contactsHeader">
+        <div class="col-3"><label>First Name</label></div>
+        <div class="col-2"><label>Last Name</label></div>
+        <div class="col-3"><label>Email Id</label></div>
+        <div class="col-2"><label>Phone Num</label></div>
+        <div class="col-2"><label>Active</label></div>
+      </div>
+      <div class="row contacts" *ngFor="let contact of contactsList">
+        <div class="col-3"><span>{{contact.firstName}}</span></div>
+        <div class="col-2"><span>{{contact.lastName}}</span></div>
+        <div class="col-3"><span>{{contact.emailId}}</span></div>
+        <div class="col-2"><span>{{contact.phoneNum}}</span></div>
+        <div class="col-2"><span>{{contact.isActive == 1 ? 'Active' : 'Inactive'}}</span></div>
+        <!--<div class="col-2"><app-toggler (onToggle)="contactStatus($event, contact.contactId)" [active]="contact.isActive"></app-toggler></div>-->
+      </div>
+    </div>
+  </div>
+</div>

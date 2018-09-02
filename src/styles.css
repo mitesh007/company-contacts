@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 body {
   margin:0;
-  font-family: helvetica;
+  font-family: "proxima-nova","Open Sans",sans-serif !important;
 }
 
 @font-face {
@@ -61,14 +61,24 @@ body {
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 
+
 .icon-user:before { content: '\e800'; } /* '' */
 .icon-key:before { content: '\e801'; } /* '' */
 .icon-users:before { content: '\e802'; } /* '' */
 .icon-phone:before { content: '\e803'; } /* '' */
+.icon-check:before { content: '\e804'; } /* '' */
+.icon-cancel:before { content: '\e805'; } /* '' */
+.icon-logout:before { content: '\e806'; } /* '' */
 .icon-mail-alt:before { content: '\f0e0'; } /* '' */
 .icon-help:before { content: '\f128'; } /* '' */
 .icon-id-card-o:before { content: '\f2c3'; } /* '' */
 
 input {
   font-size: 13px !important;
+}
+
+.input-group-text {
+  color: #ffffff !important;
+  background-color: #137ec1 !important;
+  border: 1px solid #137ec1 !important;
 }

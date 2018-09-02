@@ -1,0 +1,138 @@
+
+.manage-container {
+  width: 100%;
+  padding: 0 50px;
+  margin-top: 11%;
+}
+
+.header {
+  height: 50px;
+  padding: 15px 50px;
+  font-size: 12px;
+}
+
+.header a {
+  margin-left: 10px;
+  text-decoration: none;
+  color: #545454;
+  float: right;
+}
+
+.groups {
+  border: 1px solid #ededed;
+  background-color: #fcfcfc;
+}
+
+.groups ul {
+  padding: 0;
+  margin: 0;
+}
+
+.groups .groupsList {
+  border-right: 1px solid #ededed;
+  padding: 0;
+}
+
+.groups .group-name {
+  list-style: none;
+  padding: 10px 20px;
+  color: #545454;
+  font-size: 13px;
+  cursor: pointer;
+  border-bottom: 1px solid #ededed;
+}
+
+.groups .group-name:last-child {
+  border: 0;
+}
+
+.groups .group-name:hover {
+  background-color: #f9af43;
+  color: #ffffff !important;
+}
+
+.contactsHeader {
+  height:40px;
+  background-color: #137ec1;
+  padding: 7px 0;
+}
+
+.selected {
+  background-color: #f9af43;
+  color: #ffffff !important;
+}
+
+.contactsHeader label {
+  font-weight: 600;
+  font-size: 13px;
+  color: #ffffff;
+}
+
+.contacts span {
+  font-size: 13px;
+}
+
+.contacts:nth-child(odd) {
+  background-color: #f5f5f5;
+  height: 40px;
+  padding: 10px 0;
+
+}
+
+.contacts:nth-child(even) {
+  background-color: #ffffff;
+  height: 40px;
+  padding: 10px 0;
+
+}
+
+
+.context-menu {
+  display: none;
+  z-index: 999;
+  position: absolute;
+  border: 1px solid #cfcfcf;
+  white-space: nowrap;
+  background: #fff;
+  color: #545454;
+  border-radius: 5px;
+  box-shadow: 5px 5px 15px grey;
+  padding: 30px 30px 10px 30px;
+  font-size: 12px;
+  right: 200px;
+  top: 200px;
+  width: 500px;
+}
+
+.context-menu-arrow {
+  top: -7px;
+  right: 17px;
+  border: 2px solid #cfcfcf;
+  position: absolute;
+  display: block;
+  width: 0;
+  border-radius: 4px 0 0;
+  height: 0;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  padding: 5px;
+  border-bottom: 0;
+  border-right: 0;
+  background-color: #fff;
+}
+
+#context-menu-add-group.show {
+  display: block;
+}
+
+#add-group {
+  background-color: #58b74e;
+  border: 1px solid #58b74e!important;
+  color: #ffffff;
+}
+
+#cancel-group {
+  background-color: #f9af43;
+  border: 1px solid #f9af43!important;
+  color: #ffffff;
+}

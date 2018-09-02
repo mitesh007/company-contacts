@@ -1,7 +1,7 @@
 
 .register-container {
   width: 100%;
-  margin-top: 10%;
+  margin-top: 15%;
 }
 
 .register-box {
@@ -122,4 +122,13 @@
   margin-right: 15px;
   padding: 7px 15px;
   text-decoration: none;
+}
+
+.registered-content {
+  padding: 30px;
+  text-align: center;
+}
+
+.registered-content h5 {
+  color: #58b74e;
 }
