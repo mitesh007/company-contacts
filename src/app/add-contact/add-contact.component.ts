@@ -1,4 +1,4 @@
-import {Component, OnInit, OnChanges, Input} from '@angular/core';
+import {Component, OnInit, OnChanges, Input, Output} from '@angular/core';
 import {RestService} from "../rest.service";
 declare var $: any;
 
@@ -9,6 +9,7 @@ declare var $: any;
 })
 export class AddContactComponent implements OnChanges {
   @Input() show:boolean;
+  @Input() groupId:number;
   groupsList:any[];
   contactInfo:any = {};
   success:boolean;
@@ -33,7 +34,7 @@ export class AddContactComponent implements OnChanges {
 
   open = () => {
     this.contactInfo = {
-      groupId:0,
+      groupId: this.groupId,
       firstName:"",
       lastName: "",
       phoneNum:"",

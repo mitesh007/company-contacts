@@ -4,23 +4,11 @@
     <a href="javascript:void(0)" (click)="open()" ><i class="icon-user"></i>Add Contact</a>
     <a href="javascript:void(0)" (click)="openGroup()"><i class="icon-users"></i>Create group</a>
     <a href="javascript:void(0)" (click)="manageGroup()"><i class="icon-users"></i>Manage Groups & Contacts</a>
-    <!--<ul class="context-menu" role="menu" id="context-menu-add-group" >
-      <span class="context-menu-arrow"></span>
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text"><i class="icon-mail-alt"></i></span>
-        </div>
-        <input type="text" class="form-control" aria-label="groupName" placeholder="Enter group name" [(ngModel)]="groupName">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" id="add-group" (click)="createGroup()"><i class="icon-check"></i></button>
-          <button class="btn btn-outline-secondary" type="button" id="cancel-group" (click)="closeGroup()"><i class="icon-cancel"></i></button>
-        </div>
-      </div>
-    </ul>-->
+
   </div>
-  <app-add-contact [show]="showModal"></app-add-contact>
+  <app-add-contact [show]="showModal" [groupId]="selectedGroupId" ></app-add-contact>
   <app-create-group [show]="showCreateGroup"></app-create-group>
-  <app-manage-group [show]="showManageGroup"></app-manage-group>
+  <app-manage-group [show]="showManageGroup" [groupId]="selectedGroupId" (dataChange)="loadGroup()"></app-manage-group>
   <div class="groups row">
     <div class="col-3 zeroState-group" *ngIf="!groupsList.length">
       <ul>
@@ -35,7 +23,7 @@
       </ul>
       <ul>
         <li *ngFor="let group of groupsList" class="group-name" (click)="setSelectedGroup(group.groupId)"
-            [ngClass]="{'selected' : group.groupId === selectedGroupId}">
+            [ngClass]="{'selected' : group.groupId === selectedGroupId, 'deactivated':group.isActive == 0}">
           <i class="icon-users"></i>{{group.groupName}}
         </li>
       </ul>
@@ -52,21 +40,6 @@
         [columnDefs]="columnDefs"
       >
       </ag-grid-angular>
-      <!--<div class="row contactsHeader">
-        <div class="col-3"><label>First Name</label></div>
-        <div class="col-2"><label>Last Name</label></div>
-        <div class="col-3"><label>Email Id</label></div>
-        <div class="col-2"><label>Phone Num</label></div>
-        <div class="col-2"><label>Active</label></div>
-      </div>
-      <div class="row contacts" *ngFor="let contact of contactsList">
-        <div class="col-3"><span>{{contact.firstName}}</span></div>
-        <div class="col-2"><span>{{contact.lastName}}</span></div>
-        <div class="col-3"><span>{{contact.emailId}}</span></div>
-        <div class="col-2"><span>{{contact.phoneNum}}</span></div>
-        <div class="col-2"><span>{{contact.isActive == 1 ? 'Active' : 'Inactive'}}</span></div>
-        &lt;!&ndash;<div class="col-2"><app-toggler (onToggle)="contactStatus($event, contact.contactId)" [active]="contact.isActive"></app-toggler></div>&ndash;&gt;
-      </div>-->
     </div>
   </div>
 </div>

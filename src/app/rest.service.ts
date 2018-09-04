@@ -29,6 +29,11 @@ export class RestService {
     return restObj.post('/svc/group/create', {groupName:groupName, userId:userId}, httpOptions);
   };
 
+
+  deleteGroup = (groupId:number) => {
+    return restObj.delete('/svc/group/' + groupId, {}, httpOptions);
+  };
+
   getGroups = (userId:string) => {
     return restObj.get('/svc/groups/' + userId);
   };

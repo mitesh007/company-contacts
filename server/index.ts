@@ -144,6 +144,25 @@ app.get('/svc/groups/:userId', (req, res) => {
 });
 
 
+app.delete('/svc/group/:groupId', (req, res) => {
+  db = new sqlite3.Database('contacts', (err) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log(req.params.groupId);
+    db.run("DELETE FROM groups WHERE groupId=" + req.params.groupId, function (err, rows) {
+      //db.close();
+      if(err) {
+        res.status(500).send("Error deleting groups");
+      }
+      else {
+       res.send();
+      }
+    });
+  });
+});
+
+
 
 app.post('/svc/contacts/create', (req, res) => {
   console.log(req.body);

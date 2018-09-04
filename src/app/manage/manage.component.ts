@@ -31,17 +31,21 @@ export class ManageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadGroup();
+  }
+
+  loadGroup = () => {
     var userId = sessionStorage.getItem("loggedUserId");
     this.rest.getGroups(userId).subscribe(
       data => {
         this.groupsList = data;
-        this.setSelectedGroup(1);
+        this.setSelectedGroup(data[0].groupId);
       },
       err => {
         console.log(err);
       }
     );
-  }
+  };
 
   setSelectedGroup = (groupId) => {
     this.selectedGroupId = groupId;

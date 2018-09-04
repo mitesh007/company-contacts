@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, OnChanges, ViewChild} from '@angular/core';
+import {Component, OnInit, Input, OnChanges, ViewChild, Output, EventEmitter} from '@angular/core';
 import {RestService} from "../rest.service";
 import {AgGridNg2} from "ag-grid-angular";
 declare var $: any;
@@ -11,8 +11,9 @@ declare var $: any;
 export class ManageGroupComponent implements OnChanges {
   @ViewChild('agGrid') agGrid: AgGridNg2;
   @Input() show:boolean;
+  @Input() groupId:number;
+  @Output() dataChange = new EventEmitter<any>();
   groupsList:any[];
-  groupId:number;
   status:boolean;
   contactList:any[];
   gridApi:any;
@@ -26,24 +27,29 @@ export class ManageGroupComponent implements OnChanges {
 
   ngOnChanges() {
     if(this.show) {
-      this.groupId = 0;
       this.status = false;
       this.contactList = null;
-      var userId = sessionStorage.getItem("loggedUserId");
-      this.rest.getGroups(userId).subscribe(
-        data => {
-          this.groupsList = data;
-          this.groupsList.forEach(group => {
-            group.checked = false;
-          })
-        },
-        err => {
-          console.log(err);
-        }
-      );
+
+      this.loadGroup();
       this.open();
     }
   }
+
+  loadGroup = () => {
+    var userId = sessionStorage.getItem("loggedUserId");
+    this.rest.getGroups(userId).subscribe(
+      data => {
+        this.groupsList = data;
+        this.loadGroupData();
+        this.groupsList.forEach(group => {
+          group.checked = false;
+        })
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  };
 
   loadGroupData = () => {
     let active = this.groupsList.filter((group, index) => {
@@ -51,6 +57,11 @@ export class ManageGroupComponent implements OnChanges {
         group.groupId == this.groupId
       );
     })[0].isActive;
+    this.loadContactsList();
+    this.status = active == 1 ? true : false;
+  };
+
+  loadContactsList = () => {
     this.rest.getContacts(this.groupId).subscribe(
       data => {
         this.contactList = data;
@@ -59,7 +70,15 @@ export class ManageGroupComponent implements OnChanges {
 
       }
     );
-    this.status = active == 1 ? true : false;
+  };
+
+  deleteGroup = () => {
+    this.rest.deleteGroup(this.groupId).subscribe(
+      data => {
+        this.loadGroup();
+        this.dataChange.emit();
+      }
+    );
   };
 
   open = () => {
@@ -88,30 +107,27 @@ export class ManageGroupComponent implements OnChanges {
   };
 
   activateContacts = () => {
-    this.rest.activateContacts(this.gridApi.getSelectedRows()).subscribe();
+    this.rest.activateContacts(this.gridApi.getSelectedRows()).subscribe(
+      data => {
+        this.loadContactsList();
+      }
+    );
   };
 
   deActivateContacts = () => {
-    console.log(this.getSelectedContacts());
-    this.rest.deActivateContacts(this.gridApi.getSelectedRows()).subscribe();
+    this.rest.deActivateContacts(this.gridApi.getSelectedRows()).subscribe(
+      data => {
+        this.loadContactsList();
+      }
+    );
   };
 
   deleteContacts = () => {
-    this.rest.deleteContacts(this.gridApi.getSelectedRows()).subscribe();
-  };
-
-  getSelectedContacts = () => {
-    var contacts = this.contactList.filter((contact, index) => {
-      return (
-        contact.checked == true
-      );
-    });
-
-    return contacts;
-  };
-
-  selectionChanged = ($event) => {
-
+    this.rest.deleteContacts(this.gridApi.getSelectedRows()).subscribe(
+      data => {
+        this.loadContactsList();
+      }
+    );
   };
 
   gridReady = ($event) => {

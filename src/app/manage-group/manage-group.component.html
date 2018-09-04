@@ -18,10 +18,10 @@
               <option *ngFor="let group of groupsList" value="{{group.groupId}}" >{{group.groupName}}</option>
             </select>
             <div class="input-group-append">
-              <button type="button" class="btn btn-primary" (click)="addContact()">Delete</button>
+              <button type="button" class="btn btn-primary" (click)="deleteGroup()">Delete</button>
             </div>
         </div>
-        <div class="mb-3">
+        <div class="mb-3" *ngIf="groupId > 0">
           <app-toggler [active]="status" class="toggler" (onToggle)="updateStatus($event)"></app-toggler><span class="status-text">The group is <span [ngClass]="{'inactive' : !status}">{{status ? 'Active' : 'Inactive'}}</span></span>
         </div>
         <ag-grid-angular
@@ -35,34 +35,18 @@
           [rowData]="contactList"
           [columnDefs]="columnDefs"
           (gridReady)="gridReady($event)"
-          (selectionChanged)="selectionChanged($event)"
         >
         </ag-grid-angular>
-        <!--<div class="row contactsHeader">
-          <div class="col-2"><input type="checkbox" aria-label="Checkbox for following text input"></div>
-          <div class="col-4"><label>First Name</label></div>
-          <div class="col-4"><label>Last Name</label></div>
-          <div class="col-2"><label>Active</label></div>
-        </div>
-        <div class="scroller" *ngIf="contactList && contactList.length">
-          <div class="row contacts" *ngFor="let contact of contactList">
-            <div class="col-2"><input type="checkbox" [(ngModel)]="contact.checked" value="{{contact.contactId}}" aria-label="Checkbox for following text input"></div>
-            <div class="col-4"><span>{{contact.firstName}}</span></div>
-            <div class="col-4"><span>{{contact.lastName}}</span></div>
-            <div class="col-2"><span>{{contact.isActive == 1 ? 'Active' : 'Inactive'}}</span></div>
-          </div>
-        </div>
-        <div *ngIf="contactList && !contactList.length" class="zeroState">
-          <p>No contacts added in the group</p>
-        </div>
-        <div *ngIf="!contactList" class="zeroState">
-          <p>Select group to populate contacts</p>
-        </div>-->
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" *ngIf="contactList && contactList.length">
         <button type="button" class="btn btn-danger" (click)="deleteContacts()">Delete</button>
         <button type="button" class="btn btn-secondary" (click)="deActivateContacts()">Deactivate</button>
         <button type="button" class="btn btn-primary" (click)="activateContacts()">Activate</button>
+      </div>
+      <div class="modal-footer" *ngIf="contactList && !contactList.length">
+        <button type="button" class="btn btn-danger" (click)="deleteContacts()" disabled>Delete</button>
+        <button type="button" class="btn btn-secondary" (click)="deActivateContacts()" disabled>Deactivate</button>
+        <button type="button" class="btn btn-primary" (click)="activateContacts()" disabled>Activate</button>
       </div>
     </div>
   </div>

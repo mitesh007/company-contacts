@@ -38,11 +38,17 @@
   overflow: auto;
 }
 
+.groups .groupsList ul:last-child li.deactivated {
+  color: #d3d3d3;
+}
+
 .group-header {
-  background-color: #137ec1;
+  background-color: #f5f7f7;
   height: 33px;
+  list-style: none;
   width: 100%;
-  color: #ffffff;
+  font-weight:bold;
+  color: rgba(0, 0, 0, 0.54);
   padding:7px 20px;
   font-size:13px;
 }
@@ -90,8 +96,6 @@
 
 :host >>> .ag-header-row {
   height:40px;
-  background-color: #137ec1;
-  color: #ffffff;
 }
 
 .selected {
