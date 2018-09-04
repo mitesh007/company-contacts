@@ -10,11 +10,20 @@ import {Router} from "@angular/router";
 })
 export class ManageComponent implements OnInit {
 
-  groupsList:any[];
+  groupsList:any[] = [];
   showModal:boolean = false;
+  showManageGroup:boolean = false;
+  showCreateGroup:boolean = false;
   groupName:string;
   selectedGroupId:number;
-  contactsList:any[];
+  contactsList:any[] =[] ;
+  columnDefs = [
+    {headerName: 'First Name', field: 'firstName' },
+    {headerName: 'Last Name', field: 'lastName' },
+    {headerName: 'Email Id', field: 'emailId'},
+    {headerName: 'Phone Num', field: 'phoneNum'},
+    {headerName: 'Active', field: 'isActive'}
+  ];
   constructor(private renderer:Renderer2, private elem:ElementRef, private rest:RestService, private route:Router) {
     if(sessionStorage.getItem("loggedUser") == null) {
       this.route.navigate(['/login']);
@@ -22,7 +31,8 @@ export class ManageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.rest.getGroups().subscribe(
+    var userId = sessionStorage.getItem("loggedUserId");
+    this.rest.getGroups(userId).subscribe(
       data => {
         this.groupsList = data;
         this.setSelectedGroup(1);
@@ -53,24 +63,23 @@ export class ManageComponent implements OnInit {
   };
 
   openGroup = () => {
-    this.renderer.addClass(this.elem.nativeElement.querySelector("#context-menu-add-group"), "show");
+    this.showCreateGroup = true;
+    setTimeout(() => {
+      this.showCreateGroup = false;
+    }, 500)
+  };
+
+  manageGroup = () => {
+    this.showManageGroup = true;
+    setTimeout(() => {
+      this.showManageGroup = false;
+    }, 500)
   };
 
   closeGroup = () => {
     this.renderer.removeClass(this.elem.nativeElement.querySelector("#context-menu-add-group"), "show");
   };
 
-  createGroup = () => {
-    this.rest.createGroup(this.groupName).subscribe(
-      data => {
-        console.log(data);
-        this.closeGroup();
-      },
-      err => {
-
-      }
-    );
-  };
 
   logout = () => {
     sessionStorage.clear();
@@ -86,12 +95,4 @@ export class ManageComponent implements OnInit {
     }
   };
 
-  contactStatus = ($event, contactId) => {
-    if($event) {
-      this.rest.activeContact(contactId, 0).subscribe();
-    }
-    else {
-      this.rest.activeContact(contactId, 1).subscribe();
-    }
-  }
 }

@@ -3,9 +3,8 @@
     <a href="javascript:void(0)" (click)="logout()" ><i class="icon-logout"></i>Log out</a>
     <a href="javascript:void(0)" (click)="open()" ><i class="icon-user"></i>Add Contact</a>
     <a href="javascript:void(0)" (click)="openGroup()"><i class="icon-users"></i>Create group</a>
-    <a href="javascript:void(0)" (click)="open()" ><i class="icon-user"></i>Manage Contact</a>
-    <a href="javascript:void(0)" (click)="openGroup()"><i class="icon-users"></i>Manage group</a>
-    <ul class="context-menu" role="menu" id="context-menu-add-group" >
+    <a href="javascript:void(0)" (click)="manageGroup()"><i class="icon-users"></i>Manage Groups & Contacts</a>
+    <!--<ul class="context-menu" role="menu" id="context-menu-add-group" >
       <span class="context-menu-arrow"></span>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -17,21 +16,43 @@
           <button class="btn btn-outline-secondary" type="button" id="cancel-group" (click)="closeGroup()"><i class="icon-cancel"></i></button>
         </div>
       </div>
-    </ul>
+    </ul>-->
   </div>
   <app-add-contact [show]="showModal"></app-add-contact>
+  <app-create-group [show]="showCreateGroup"></app-create-group>
+  <app-manage-group [show]="showManageGroup"></app-manage-group>
   <div class="groups row">
-    <div class="col-3 groupsList">
+    <div class="col-3 zeroState-group" *ngIf="!groupsList.length">
+      <ul>
+        <li class="group-header">Groups</li>
+        <li><span>Click on <a href="javascript:void(0)" (click)="openGroup()"><i class="icon-users"></i> Create Group</a> to start adding to Groups to your account</span></li>
+      </ul>
+
+    </div>
+    <div class="col-3 groupsList" *ngIf="groupsList.length">
+      <ul>
+        <li class="group-header">Groups</li>
+      </ul>
       <ul>
         <li *ngFor="let group of groupsList" class="group-name" (click)="setSelectedGroup(group.groupId)"
             [ngClass]="{'selected' : group.groupId === selectedGroupId}">
           <i class="icon-users"></i>{{group.groupName}}
-          <app-toggler (onToggle)="updateStatus($event, group.groupId)" [active]="group.isActive == 1 ? true : false" style="float: right;"></app-toggler>
         </li>
       </ul>
     </div>
     <div class="col-9 contactsList">
-      <div class="row contactsHeader">
+      <ag-grid-angular
+        style="width: 100%; height: 65vh;"
+        class="ag-theme-balham"
+        [enableSorting]="true"
+        [enableFilter]="true"
+        [pagination]="true"
+        [paginationPageSize]="10"
+        [rowData]="contactsList"
+        [columnDefs]="columnDefs"
+      >
+      </ag-grid-angular>
+      <!--<div class="row contactsHeader">
         <div class="col-3"><label>First Name</label></div>
         <div class="col-2"><label>Last Name</label></div>
         <div class="col-3"><label>Email Id</label></div>
@@ -44,8 +65,8 @@
         <div class="col-3"><span>{{contact.emailId}}</span></div>
         <div class="col-2"><span>{{contact.phoneNum}}</span></div>
         <div class="col-2"><span>{{contact.isActive == 1 ? 'Active' : 'Inactive'}}</span></div>
-        <!--<div class="col-2"><app-toggler (onToggle)="contactStatus($event, contact.contactId)" [active]="contact.isActive"></app-toggler></div>-->
-      </div>
+        &lt;!&ndash;<div class="col-2"><app-toggler (onToggle)="contactStatus($event, contact.contactId)" [active]="contact.isActive"></app-toggler></div>&ndash;&gt;
+      </div>-->
     </div>
   </div>
 </div>

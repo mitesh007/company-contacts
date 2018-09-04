@@ -89,7 +89,10 @@ app.post('/svc/employee/login', (req, res) => {
       }
       else {
         if(rows.length > 0) {
-          res.send();
+          var response = {
+            userId:rows[0].userId
+          }
+          res.send(JSON.stringify(response));
         }
         else {
           res.status(404).send("Invalid User Id or Password");
@@ -106,8 +109,8 @@ app.post('/svc/group/create', (req, res) => {
     if (err) {
       return console.error(err.message);
     }
-    db.run("INSERT into groups(groupName,isActive) " +
-      "VALUES ('" + req.body.groupName + "',1)", function (err, rows) {
+    db.run("INSERT into groups(groupName, userId,isActive) " +
+      "VALUES ('" + req.body.groupName + "'," + req.body.userId + ",1)", function (err, rows) {
       //db.close();
       console.log(err);
       console.log(rows);
@@ -117,12 +120,13 @@ app.post('/svc/group/create', (req, res) => {
   });
 });
 
-app.get('/svc/groups', (req, res) => {
+app.get('/svc/groups/:userId', (req, res) => {
   db = new sqlite3.Database('contacts', (err) => {
     if (err) {
       return console.error(err.message);
     }
-    db.all("SELECT * from groups", function (err, rows) {
+    console.log(req.params.userId);
+    db.all("SELECT * from groups where userId=" + req.params.userId, function (err, rows) {
       //db.close();
       if(err) {
         res.status(500).send("Error fetching groups");
@@ -151,8 +155,8 @@ app.post('/svc/contacts/create', (req, res) => {
       "VALUES ('" + req.body.firstName + "','" +
       req.body.lastName + "','" +
       req.body.emailId + "','" +
-      req.body.phoneNum + "','" +
-      req.body.groupId + ", 1')");
+      req.body.phoneNum + "'," +
+      req.body.groupId + ", 1)");
     //db.close();
     res.send();
 
@@ -199,7 +203,8 @@ app.put('/svc/group/active', (req, res) => {
   });
 });
 
-app.put('/svc/contact/active', (req, res) => {
+
+app.put('/svc/contacts/deactive', (req, res) => {
   db = new sqlite3.Database('contacts', (err) => {
     if (err) {
       return console.error(err.message);
@@ -207,18 +212,71 @@ app.put('/svc/contact/active', (req, res) => {
     let sql = `UPDATE contacts
             SET isActive = ?
             WHERE contactId = ?`;
+    console.log(req.body);
+    for(let contact in req.body) {
+      db.run(sql, [0, req.body[contact].contactId], function (err, rows) {
+        if (err) {
+          return console.error(err.message);
+        }
+        console.log(`Row(s) updated: ${this.changes}`);
 
-    db.run(sql, [req.body.active, req.body.contactId], function (err, rows) {
-      if (err) {
-        return console.error(err.message);
-      }
-      console.log(`Row(s) updated: ${this.changes}`);
-
-
-      res.send();
-    });
+      });
+    }
+    res.send();
     //db.close();
   });
 });
+
+
+
+app.put('/svc/contacts/active', (req, res) => {
+  db = new sqlite3.Database('contacts', (err) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    let sql = `UPDATE contacts
+            SET isActive = ?
+            WHERE contactId = ?`;
+    for(let contact in req.body) {
+      db.run(sql, [1, req.body[contact].contactId], function (err, rows) {
+        if (err) {
+          return console.error(err.message);
+        }
+        console.log(`Row(s) updated: ${this.changes}`);
+
+      });
+    }
+
+    res.send();
+
+    //db.close();
+  });
+});
+
+
+app.post('/svc/contacts/delete', (req, res) => {
+  db = new sqlite3.Database('contacts', (err) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    let sql = `DELETE FROM contacts WHERE contactId=?`;
+    for(let contact in req.body) {
+      db.run(sql, req.body[contact].contactId, function (err, rows) {
+        if (err) {
+          return console.error(err.message);
+        }
+        console.log(`Row(s) Deleted: ${this.changes}`);
+
+      });
+    }
+
+    res.send();
+
+    //db.close();
+  });
+});
+
+
+
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'));

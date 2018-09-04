@@ -25,12 +25,12 @@ export class RestService {
     return restObj.post('/svc/employee/login', loginInfo, httpOptions);
   };
 
-  createGroup = (groupName:string) => {
-    return restObj.post('/svc/group/create', {groupName:groupName}, httpOptions);
+  createGroup = (groupName:string, userId:string) => {
+    return restObj.post('/svc/group/create', {groupName:groupName, userId:userId}, httpOptions);
   };
 
-  getGroups = () => {
-    return restObj.get('/svc/groups');
+  getGroups = (userId:string) => {
+    return restObj.get('/svc/groups/' + userId);
   };
 
   addContact = (contactInfo:any) => {
@@ -50,12 +50,18 @@ export class RestService {
     return restObj.put('/svc/group/active', body, httpOptions);
   };
 
-  activeContact = (contactId:number, status:number) => {
-    var body = {
-      contactId: contactId,
-      active: status
-    };
-    return restObj.put('/svc/contact/active', body, httpOptions);
+  activateContacts = (body:any[]) => {
+    return restObj.put('/svc/contacts/active', body, httpOptions);
   };
+
+  deActivateContacts = (body:any[]) => {
+    return restObj.put('/svc/contacts/deactive', body, httpOptions);
+  };
+
+  deleteContacts = (body:any[]) => {
+    return restObj.post('/svc/contacts/delete', body, httpOptions);
+  };
+
+
 
 }

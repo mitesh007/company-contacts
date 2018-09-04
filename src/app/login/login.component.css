@@ -4,6 +4,11 @@
   margin-top: 15%;
 }
 
+.login-error-text {
+  color: #fc0d1b;
+  font-size: 12px;
+}
+
 .login-box {
   width: 50%;
   height: 300px;
@@ -29,7 +34,7 @@
 }
 
 .login-content {
-  margin-top: 35px;
+  margin-top: 5px;
   padding: 0 20px 20px 20px;
 }
 

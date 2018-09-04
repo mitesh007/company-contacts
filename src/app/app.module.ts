@@ -10,8 +10,9 @@ import { AddContactComponent } from './add-contact/add-contact.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { TogglerComponent } from './toggler/toggler.component';
-import { ManageContactComponent } from './manage-contact/manage-contact.component';
+import { CreateGroupComponent } from './create-group/create-group.component';
 import { ManageGroupComponent } from './manage-group/manage-group.component';
+import {AgGridModule} from "ag-grid-angular";
 
 @NgModule({
   declarations: [
@@ -21,14 +22,15 @@ import { ManageGroupComponent } from './manage-group/manage-group.component';
     ManageComponent,
     AddContactComponent,
     TogglerComponent,
-    ManageContactComponent,
+    CreateGroupComponent,
     ManageGroupComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AgGridModule.withComponents([])
   ],
   providers: [],
   bootstrap: [AppComponent]

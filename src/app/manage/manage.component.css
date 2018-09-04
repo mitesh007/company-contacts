@@ -30,7 +30,21 @@
 
 .groups .groupsList {
   border-right: 1px solid #ededed;
-  padding: 0;
+  padding: 0;;
+}
+
+.groups .groupsList ul:last-child{
+  height:60vh;
+  overflow: auto;
+}
+
+.group-header {
+  background-color: #137ec1;
+  height: 33px;
+  width: 100%;
+  color: #ffffff;
+  padding:7px 20px;
+  font-size:13px;
 }
 
 .groups .group-name {
@@ -51,10 +65,33 @@
   color: #ffffff !important;
 }
 
-.contactsHeader {
+.zeroState-group {
+  display: table;
+  height: 70vh;
+  padding:0;
+}
+
+.zeroState-group li {
+  list-style: none;
+}
+
+.zeroState-group span {
+  font-size: 13px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  color: #808080;
+  padding:20px;
+}
+
+.contactsList {
+  padding:0;
+}
+
+:host >>> .ag-header-row {
   height:40px;
   background-color: #137ec1;
-  padding: 7px 0;
+  color: #ffffff;
 }
 
 .selected {
@@ -67,6 +104,7 @@
   font-size: 13px;
   color: #ffffff;
 }
+
 
 .contacts span {
   font-size: 13px;

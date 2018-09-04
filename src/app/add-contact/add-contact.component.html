@@ -22,7 +22,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id=""><i class="icon-user"></i></span>
           </div>
-          <input type="text" class="form-control" placeholder="First name" [(ngModel)]="contactInfo.firstName">
+          <input type="text" class="form-control" placeholder="First name" (keyup)="success = false" [(ngModel)]="contactInfo.firstName">
           <input type="text" class="form-control" placeholder="Last name" [(ngModel)]="contactInfo.lastName">
         </div>
         <div class="input-group mb-3">
@@ -40,6 +40,7 @@
           </div>
           <input type="text" class="form-control" aria-label="phone" [(ngModel)]="contactInfo.phoneNum">
         </div>
+        <span *ngIf="success" class="success-text">Contact added successfully</span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

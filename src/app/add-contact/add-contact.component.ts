@@ -11,13 +11,15 @@ export class AddContactComponent implements OnChanges {
   @Input() show:boolean;
   groupsList:any[];
   contactInfo:any = {};
+  success:boolean;
 
   constructor(private rest:RestService) { }
 
 
   ngOnChanges() {
     if(this.show) {
-      this.rest.getGroups().subscribe(
+      var userId = sessionStorage.getItem("loggedUserId");
+      this.rest.getGroups(userId).subscribe(
         data => {
           this.groupsList = data;
         },
@@ -47,12 +49,13 @@ export class AddContactComponent implements OnChanges {
     this.rest.addContact(this.contactInfo).subscribe(
       data => {
         this.contactInfo = {
-          groupId:0,
+          groupId: this.contactInfo.groupId,
           firstName:"",
           lastName: "",
           phoneNum:"",
           emailId: ""
-        }
+        };
+        this.success = true;
       },
       err => {
 

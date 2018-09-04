@@ -1,0 +1,68 @@
+
+.btn {
+  font-size: 13px;
+}
+
+.toggler {
+  position: relative;
+  top:11px;
+  margin-right:10px;
+}
+
+
+.contactsHeader {
+  height:40px;
+  background-color: #137ec1;
+  padding: 7px 0;
+  margin:0;
+}
+
+.contacts {
+  height: 40px;
+  padding: 10px 0;
+  margin: 0;
+}
+
+.contactsHeader label {
+  font-weight: 600;
+  font-size: 13px;
+  color: #ffffff;
+}
+
+.contacts span {
+  font-size: 13px;
+}
+
+.contacts:nth-child(odd) {
+  background-color: #f5f5f5;
+}
+
+.contacts:nth-child(even) {
+  background-color: #ffffff;
+}
+
+.scroller {
+  height: 250px;
+  overflow-y: auto;
+}
+
+.zeroState {
+  height:250px;
+}
+
+.zeroState p {
+  text-align: center;
+  position: relative;
+  top: 50%;
+  font-size: 14px;
+  color: #a9a9a9;
+  font-weight: normal;
+}
+
+.status-text span {
+  color: #58b74e;
+}
+
+.status-text span.inactive {
+  color: red;
+}
