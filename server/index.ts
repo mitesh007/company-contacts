@@ -53,7 +53,7 @@ db.serialize(function() {
 });
 
 
-app.get('/', (req, res) => res.send('Hello World!'));
+app.get('/', (req, res) => res.send('Backend Server Running!'));
 
 app.post('/svc/employee/register', (req, res) => {
   console.log(req.body);
