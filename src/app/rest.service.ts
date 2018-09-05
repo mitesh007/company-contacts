@@ -42,6 +42,11 @@ export class RestService {
     return restObj.post('/svc/contacts/create', contactInfo, httpOptions);
   };
 
+  updateContact = (contactInfo:any) => {
+    return restObj.put('/svc/contact/update', contactInfo, httpOptions);
+  };
+
+
   getContacts = (groupId:number) => {
     return restObj.get('/svc/group/contacts/' + groupId);
   };

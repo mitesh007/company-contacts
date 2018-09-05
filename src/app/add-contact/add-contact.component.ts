@@ -10,10 +10,12 @@ declare var $: any;
 export class AddContactComponent implements OnChanges {
   @Input() show:boolean;
   @Input() groupId:number;
+  @Input() selContactInfo:any;
+  @Input() id:string;
   groupsList:any[];
   contactInfo:any = {};
   success:boolean;
-
+  isUpdate:boolean = false;
   constructor(private rest:RestService) { }
 
 
@@ -28,7 +30,12 @@ export class AddContactComponent implements OnChanges {
           console.log(err);
         }
       );
-      this.open();
+      if(this.selContactInfo && this.selContactInfo.length) {
+        this.openModify();
+      }
+      else {
+        this.open();
+      }
     }
   }
 
@@ -41,7 +48,17 @@ export class AddContactComponent implements OnChanges {
       emailId: ""
     };
     setTimeout(()=>{
-      $('#add-contacts').modal('show');
+      $('#'+this.id).modal('show');
+    },500);
+  };
+
+  openModify = () => {
+    this.contactInfo = this.selContactInfo[0];
+    var emailId = this.contactInfo.emailId;
+    this.contactInfo.emailId = emailId.substr(0, emailId.indexOf('@inmar.com'));
+    this.isUpdate = true;
+    setTimeout(()=>{
+      $('#'+this.id).modal('show');
     },500);
   };
 
@@ -56,6 +73,18 @@ export class AddContactComponent implements OnChanges {
           phoneNum:"",
           emailId: ""
         };
+        this.success = true;
+      },
+      err => {
+
+      }
+    );
+  };
+
+  updateContact = () => {
+    this.contactInfo.emailId = this.contactInfo.emailId + "@inmar.com";
+    this.rest.updateContact(this.contactInfo).subscribe(
+      data => {
         this.success = true;
       },
       err => {

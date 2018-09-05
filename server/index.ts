@@ -273,6 +273,32 @@ app.put('/svc/contacts/active', (req, res) => {
 });
 
 
+app.put('/svc/contact/update', (req, res) => {
+  db = new sqlite3.Database('contacts', (err) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    let sql = `UPDATE contacts
+            SET groupId = ?,
+            firstName = ?,
+            lastName = ?,
+            emailId = ?,
+            phoneNum = ?
+            WHERE contactId = ?`;
+    console.log(req.body);
+      db.run(sql, [req.body.groupId, req.body.firstName, req.body.lastName, req.body.emailId, req.body.phoneNum, req.body.contactId], function (err, rows) {
+        if (err) {
+          return console.error(err.message);
+        }
+        console.log(`Row(s) updated: ${this.changes}`);
+        res.send();
+      });
+
+    //db.close();
+  });
+});
+
+
 app.post('/svc/contacts/delete', (req, res) => {
   db = new sqlite3.Database('contacts', (err) => {
     if (err) {

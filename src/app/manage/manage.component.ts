@@ -11,11 +11,14 @@ import {Router} from "@angular/router";
 export class ManageComponent implements OnInit {
 
   groupsList:any[] = [];
-  showModal:boolean = false;
+  showContactModal:boolean = false;
+  selectedContact:any;
   showManageGroup:boolean = false;
   showCreateGroup:boolean = false;
+  showModContactModal:boolean = false;
   groupName:string;
   selectedGroupId:number;
+  gridApi:any;
   contactsList:any[] =[] ;
   columnDefs = [
     {headerName: 'First Name', field: 'firstName' },
@@ -59,10 +62,10 @@ export class ManageComponent implements OnInit {
     );
   };
 
-  open = () => {
-    this.showModal = true;
+  addNewContact = () => {
+    this.showContactModal = true;
     setTimeout(() => {
-      this.showModal = false;
+      this.showContactModal = false;
     }, 500)
   };
 
@@ -98,5 +101,23 @@ export class ManageComponent implements OnInit {
       this.rest.activeGroup(groupId, 1).subscribe();
     }
   };
+
+  modifySelectedContact = ($event) => {
+    this.showModContactModal = true;
+    setTimeout(() => {
+      this.showModContactModal = false;
+    }, 500)
+  };
+
+  setSelectedContact = () => {
+    this.selectedContact = this.gridApi.getSelectedRows();
+  };
+
+  gridReady = ($event) => {
+    this.gridApi = $event.api;
+    this.gridApi.onRowDoubleClicked = (data:any) => {
+      console.log(data);
+    }
+  }
 
 }

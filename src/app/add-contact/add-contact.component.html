@@ -1,9 +1,10 @@
 <!-- Modal -->
-<div class="modal fade" id="add-contacts" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="{{id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Add new contact</h5>
+        <h5 class="modal-title" *ngIf="!isUpdate">Add new contact</h5>
+        <h5 class="modal-title" *ngIf="isUpdate">Update contact</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -40,11 +41,13 @@
           </div>
           <input type="text" class="form-control" aria-label="phone" [(ngModel)]="contactInfo.phoneNum">
         </div>
-        <span *ngIf="success" class="success-text">Contact added successfully</span>
+        <span *ngIf="success && !isUpdate" class="success-text">Contact added successfully</span>
+        <span *ngIf="success && isUpdate" class="success-text">Contact updated successfully</span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="addContact()">Add</button>
+        <button type="button" class="btn btn-primary" (click)="addContact()" *ngIf="!isUpdate">Add</button>
+        <button type="button" class="btn btn-primary" (click)="updateContact()" *ngIf="isUpdate">Update</button>
       </div>
     </div>
   </div>

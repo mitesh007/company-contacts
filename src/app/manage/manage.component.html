@@ -1,12 +1,14 @@
 <div class="manage-container">
   <div class="header">
     <a href="javascript:void(0)" (click)="logout()" ><i class="icon-logout"></i>Log out</a>
-    <a href="javascript:void(0)" (click)="open()" ><i class="icon-user"></i>Add Contact</a>
+    <a href="javascript:void(0)" (click)="addNewContact()" ><i class="icon-user"></i>Add Contact</a>
     <a href="javascript:void(0)" (click)="openGroup()"><i class="icon-users"></i>Create group</a>
     <a href="javascript:void(0)" (click)="manageGroup()"><i class="icon-users"></i>Manage Groups & Contacts</a>
+    <a href="javascript:void(0)" *ngIf="selectedContact" (click)="modifySelectedContact()" ><i class="icon-user"></i>Modify Contact</a>
 
   </div>
-  <app-add-contact [show]="showModal" [groupId]="selectedGroupId" ></app-add-contact>
+  <app-add-contact [id]="'add-contact'" [show]="showContactModal" [groupId]="selectedGroupId" ></app-add-contact>
+  <app-add-contact [id]="'modify-contact'" [show]="showModContactModal" [groupId]="selectedGroupId" [selContactInfo]="selectedContact" ></app-add-contact>
   <app-create-group [show]="showCreateGroup"></app-create-group>
   <app-manage-group [show]="showManageGroup" [groupId]="selectedGroupId" (dataChange)="loadGroup()"></app-manage-group>
   <div class="groups row">
@@ -33,11 +35,14 @@
         style="width: 100%; height: 65vh;"
         class="ag-theme-balham"
         [enableSorting]="true"
+        [rowSelection]="'single'"
         [enableFilter]="true"
         [pagination]="true"
         [paginationPageSize]="10"
         [rowData]="contactsList"
         [columnDefs]="columnDefs"
+        (selectionChanged)="setSelectedContact()"
+        (gridReady)="gridReady($event)"
       >
       </ag-grid-angular>
     </div>
