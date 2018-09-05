@@ -21,7 +21,7 @@ export class ManageGroupComponent implements OnChanges {
     {headerName: 'First Name', field: 'firstName'},
     {headerName: 'Last Name', field: 'lastName' },
     {headerName: 'Phone Num', field: 'phoneNum'},
-    {headerName: 'Active', field: 'isActive'}
+    {headerName: 'Active', field: 'isActive', valueGetter: "data.isActive == 1 ? 'Active' : 'Inactive'", volatile:true, cellRenderer: "agAnimateShowChangeCellRenderer"}
   ];
   constructor(private rest:RestService) { }
 

@@ -22,7 +22,7 @@ export class ManageComponent implements OnInit {
     {headerName: 'Last Name', field: 'lastName' },
     {headerName: 'Email Id', field: 'emailId'},
     {headerName: 'Phone Num', field: 'phoneNum'},
-    {headerName: 'Active', field: 'isActive'}
+    {headerName: 'Active', field: 'isActive', valueGetter: "data.isActive == 1 ? 'Active' : 'Inactive'"}
   ];
   constructor(private renderer:Renderer2, private elem:ElementRef, private rest:RestService, private route:Router) {
     if(sessionStorage.getItem("loggedUser") == null) {
