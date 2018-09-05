@@ -32,7 +32,7 @@ Run `node index.ts` for a backend server. Navigate to `http://localhost:3000/`. 
 ## Database
 This application is storing data in [SQLite](https://www.sqlite.org/index.html) database, which is a self-contained, high-reliability, embedded, full-featured, public-domain, SQL database engine.
 
-##Fetaures Supported
+## Fetaures Supported
 
 This project support all the below features
 - [x] An employee can only sign-up using company email address (something@inmar.com). 
